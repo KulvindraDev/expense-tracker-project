@@ -1,6 +1,7 @@
 package com.expense.authservice.services;
 
 import com.expense.authservice.entities.UserInfo;
+import com.expense.authservice.eventProducer.UserInfoProducer;
 import com.expense.authservice.models.UserInfoDto;
 import com.expense.authservice.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private final UserInfoProducer userInfoProducer;
 
     @Override
     public UserDetails loadUserByUsername (String username) throws UsernameNotFoundException {
