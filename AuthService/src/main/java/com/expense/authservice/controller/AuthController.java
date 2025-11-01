@@ -1,6 +1,7 @@
 package com.expense.authservice.controller;
 
 import com.expense.authservice.entities.RefreshToken;
+import com.expense.authservice.eventProducer.UserInfoProducer;
 import com.expense.authservice.models.UserInfoDto;
 import com.expense.authservice.response.JwtResponseDTO;
 import com.expense.authservice.services.JwtService;
