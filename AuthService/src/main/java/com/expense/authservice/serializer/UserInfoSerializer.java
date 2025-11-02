@@ -6,7 +6,7 @@ import org.apache.kafka.common.serialization.Serializer;
 
 import java.util.Map;
 
-public class UserInfoSerializer extends Serializer<UserInfoDto> {
+public class UserInfoSerializer implements Serializer<UserInfoDto> {
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {}
 
