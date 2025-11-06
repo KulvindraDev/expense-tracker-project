@@ -1,6 +1,7 @@
 package com.expense.authservice.services;
 
 import com.expense.authservice.entities.UserInfo;
+import com.expense.authservice.eventProducer.UserInfoEvent;
 import com.expense.authservice.eventProducer.UserInfoProducer;
 import com.expense.authservice.models.UserInfoDto;
 import com.expense.authservice.repository.UserRepository;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClient;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -29,6 +31,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private final UserInfoProducer userInfoProducer;
+    @Autowired
+    private RestClient.Builder builder;
 
     @Override
     public UserDetails loadUserByUsername (String username) throws UsernameNotFoundException {
@@ -49,7 +53,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return false;
         }
         String userId = UUID.randomUUID().toString();
-        userRepository.save(new UserInfo(userId, userInfoDto.getUsername(), userInfoDto.getPassword(), new HashSet<>()));
+        UserInfo userInfo = new UserInfo(userId, userInfoDto.getUsername(), userInfoDto.getPassword(), new HashSet<>());
+        userRepository.save(userInfo);
+        userInfoProducer.sendInfoToKafka(userInfoEventToPublish(userInfoDto, userId));
         return true;
+    }
+
+    private UserInfoEvent userInfoEventToPublish (UserInfoDto userInfoDto, String userId) {
+        return UserInfoEvent.builder()
+                .userId(userId)
+                .firstName(userInfoDto.getFirstName())
+                .lastName(userInfoDto.getLastName())
+                .emailId(userInfoDto.getEmailId())
+                .phoneNumber(userInfoDto.getPhoneNumber())
+                .build();
     }
 }
