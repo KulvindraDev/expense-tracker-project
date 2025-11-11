@@ -31,8 +31,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private final UserInfoProducer userInfoProducer;
-    @Autowired
-    private RestClient.Builder builder;
 
     @Override
     public UserDetails loadUserByUsername (String username) throws UsernameNotFoundException {
