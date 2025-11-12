@@ -34,8 +34,8 @@ public class UserService
                 userInfo.getUserId(),
                 userInfo.getFirstName(),
                 userInfo.getLastName(),
-                userInfo.getPhoneNumber(),
                 userInfo.getEmailId(),
+                userInfo.getPhoneNumber(),
                 userInfo.getProfilePic()
         );
     }
@@ -50,8 +50,8 @@ public class UserService
                 userInfo.getUserId(),
                 userInfo.getFirstName(),
                 userInfo.getLastName(),
-                userInfo.getPhoneNumber(),
                 userInfo.getEmailId(),
+                userInfo.getPhoneNumber(),
                 userInfo.getProfilePic()
         );
     }

@@ -27,24 +27,25 @@ public class UserInfoDTO {
     @NonNull
     private String lastName;
 
-    @JsonProperty("phone_number")
-    @NonNull
-    private Long phoneNumber;
-
     @JsonProperty("email_id")
     @NonNull
     private String emailId;
+
+    @JsonProperty("phone_number")
+    @NonNull
+    private Long phoneNumber;
 
     @JsonProperty("profile_pic")
     private String profilePic;
 
     public UserInfo transformToUserInfo() {
         return UserInfo.builder()
+                .userId(userId)
                 .firstName(firstName)
                 .lastName(lastName)
-                .userId(userId)
                 .emailId(emailId)
+                .phoneNumber(phoneNumber)
                 .profilePic(profilePic)
-                .phoneNumber(phoneNumber).build();
+                .build();
     }
 }
