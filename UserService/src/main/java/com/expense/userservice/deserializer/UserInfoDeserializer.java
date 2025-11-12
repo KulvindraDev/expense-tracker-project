@@ -1,6 +1,6 @@
 package com.expense.userservice.deserializer;
 
-import com.expense.userservice.entities.UserInfoDTO;
+import com.expense.userservice.models.UserInfoDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.serialization.Deserializer;
 
@@ -13,12 +13,12 @@ public class UserInfoDeserializer implements Deserializer<UserInfoDTO> {
 
     @Override
     public UserInfoDTO deserialize (String arg0, byte[] arg1) {
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         UserInfoDTO user = null;
         try {
-            user = objectMapper.readValue(arg1, UserInfoDTO.class);
+            user = mapper.readValue(arg1, UserInfoDTO.class);
         } catch (Exception e) {
-            System.out.println("can not deserialize");
+            e.printStackTrace();
         }
         return user;
     }

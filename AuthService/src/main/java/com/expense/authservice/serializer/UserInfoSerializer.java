@@ -1,17 +1,18 @@
 package com.expense.authservice.serializer;
 
+import com.expense.authservice.eventProducer.UserInfoEvent;
 import com.expense.authservice.models.UserInfoDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.serialization.Serializer;
 
 import java.util.Map;
 
-public class UserInfoSerializer implements Serializer<UserInfoDto> {
+public class UserInfoSerializer implements Serializer<UserInfoEvent> {
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {}
 
     @Override
-    public byte[] serialize (String arg0, UserInfoDto arg1) {
+    public byte[] serialize (String arg0, UserInfoEvent arg1) {
         byte[] retVal = null;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
